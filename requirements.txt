@@ -1,1 +1,8 @@
+# Required
+pytest==7.4.0         # For unit and integration testing
+pytest-mock==3.11.1   # For mocking during tests
 
+# Optional
+flake8==6.1.0         # For linting and enforcing Python coding standards
+black==23.9.1         # For code formatting
+mypy==1.6.0           # For type checking
