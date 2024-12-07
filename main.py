@@ -1,5 +1,5 @@
 from scripts.setup import create_challenge
-from scripts.connect_vpn import connect_to_vpn
+from scripts.connect_vpn import connect_vpn
 from scripts.scenarios import list_scenarios, run_scenario, validate_scenarios
 from scripts.utils import load_config
 
