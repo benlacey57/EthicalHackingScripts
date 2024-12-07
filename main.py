@@ -2,6 +2,8 @@ from scripts import setup, connect_vpn, run_tool, report
 from scripts import scenarios
 from scripts import utils
 import os
+import sys
+
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 def main_menu():
