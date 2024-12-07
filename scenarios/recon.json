@@ -1,18 +1,30 @@
 {
   "name": "Recon",
-  "description": "Performs initial reconnaissance tasks including Nmap and Gobuster.",
+  "description": "Performs comprehensive reconnaissance tasks including Nmap, Gobuster, and DNS enumeration.",
   "tasks": [
     {
-      "name": "Nmap Stealth Scan",
-      "command": "nmap stealth"
+      "name": "Nmap Combined Recon",
+      "command": "nmap combined"
     },
     {
       "name": "Gobuster Directory Scan",
       "command": "gobuster directory"
     },
     {
-      "name": "Search Vulnerabilities",
-      "command": "vulnerability_search"
+      "name": "Gobuster Vhosts Scan",
+      "command": "gobuster vhosts"
+    },
+    {
+      "name": "Gobuster DNS Scan",
+      "command": "gobuster dns"
+    },
+    {
+      "name": "Gobuster Subdomain Scan",
+      "command": "gobuster subdomains"
+    },
+    {
+      "name": "Searchsploit Vulnerabilities",
+      "command": "searchsploit exploit-search"
     }
   ]
 }
