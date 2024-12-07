@@ -33,13 +33,7 @@ The **HTB Challenge Tool** is a Python-based utility designed to streamline the 
 
 7. **Extensible Design**:
    - Easily add new tools and presets by editing JSON files without modifying code.
-
----
-
-## Directory Structure
-
-
-
+   
 ---
 
 ## Installation
@@ -58,7 +52,7 @@ The **HTB Challenge Tool** is a Python-based utility designed to streamline the 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/htb_tool.git
+   git@github.com:benlacey57/EthicalHackingScripts.git
    cd htb_tool```
 
 2. Install Python dependencies:
