@@ -1,0 +1,20 @@
+{
+  "output_file": "nikto.txt",
+  "presets": [
+    {
+      "name": "basic-scan",
+      "description": "Perform a basic web server scan.",
+      "command": "-h {ip}"
+    },
+    {
+      "name": "ssl-scan",
+      "description": "Scan a server over HTTPS.",
+      "command": "-h https://{ip}"
+    },
+    {
+      "name": "no-dns",
+      "description": "Scan without resolving DNS.",
+      "command": "-h {ip} -nossl"
+    }
+  ]
+}
