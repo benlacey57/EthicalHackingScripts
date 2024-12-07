@@ -4,6 +4,9 @@ from scripts.scenarios import list_scenarios, run_scenario, validate_scenarios
 from scripts.utils import load_config
 
 def main_menu():
+    """
+    Displays the main menu for the HTB Challenge Tool.
+    """
     while True:
         print("\nHTB Challenge Tool")
         print("1. Set up a new challenge")
@@ -16,9 +19,9 @@ def main_menu():
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            create_challenge()  # Call directly
+            create_challenge()
         elif choice == "2":
-            connect_to_vpn()
+            connect_vpn()
         elif choice == "3":
             scenarios_menu()
         elif choice == "4":
@@ -32,3 +35,6 @@ def main_menu():
             break
         else:
             print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main_menu()
