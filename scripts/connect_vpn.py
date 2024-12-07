@@ -23,7 +23,7 @@ def connect_vpn():
             os.path.join(challenge_path, f) for f in os.listdir(challenge_path) if f.endswith(".ovpn")
         ]
         if not ovpn_files:
-            raise FileNotFoundError(f"No .ovpn files found in the challenge directory '{challenge_path}'.")
+            raise NoVPNFilesFoundError(challenge_path)
         
         # Select the newest file based on modification time
         ovpn_file = max(ovpn_files, key=os.path.getmtime)
