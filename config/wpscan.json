@@ -1,0 +1,20 @@
+{
+  "output_file": "wpscan.txt",
+  "presets": [
+    {
+      "name": "basic-scan",
+      "description": "Perform a basic WordPress scan.",
+      "command": "--url http://{ip}/"
+    },
+    {
+      "name": "enumerate-users",
+      "description": "Enumerate WordPress users.",
+      "command": "--url http://{ip}/ --enumerate u"
+    },
+    {
+      "name": "plugins-scan",
+      "description": "Enumerate vulnerable plugins.",
+      "command": "--url http://{ip}/ --enumerate p"
+    }
+  ]
+}
