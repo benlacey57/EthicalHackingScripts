@@ -3,7 +3,7 @@ import subprocess
 from scripts.utils import prompt_user_input, load_challenge_metadata
 from scripts.log_manager import log_action
 
-def connect_to_vpn():
+def connect_vpn():
     """
     Connects to the VPN using the .ovpn file located in the challenge directory.
     
