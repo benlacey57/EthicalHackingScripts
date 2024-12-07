@@ -1,0 +1,25 @@
+{
+  "output_file": "enum4linux.txt",
+  "presets": [
+    {
+      "name": "default-scan",
+      "description": "Performs a default enumeration scan on SMB services.",
+      "command": "-a {ip} > {output_file}"
+    },
+    {
+      "name": "user-list",
+      "description": "Lists users from SMB.",
+      "command": "-U {ip} > {output_file}"
+    },
+    {
+      "name": "group-list",
+      "description": "Lists groups from SMB.",
+      "command": "-G {ip} > {output_file}"
+    },
+    {
+      "name": "password-policy",
+      "description": "Checks the password policy of SMB services.",
+      "command": "-P {ip} > {output_file}"
+    }
+  ]
+}
