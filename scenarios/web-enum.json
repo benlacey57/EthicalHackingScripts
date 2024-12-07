@@ -1,0 +1,18 @@
+{
+  "name": "Web Enumeration",
+  "description": "Performs web-based reconnaissance, including Nmap HTTP scan, Gobuster, and Nikto.",
+  "tasks": [
+    {
+      "name": "Nmap HTTP Service Scan",
+      "command": "nmap normal"
+    },
+    {
+      "name": "Gobuster Directory Scan",
+      "command": "gobuster directory"
+    },
+    {
+      "name": "Nikto Scan",
+      "command": "nikto basic-scan"
+    }
+  ]
+}
