@@ -48,9 +48,10 @@ def connect_vpn():
         log_action(challenge_path, "VPN connection process started successfully.")
         print("VPN connection started successfully. Make sure you can ping the virtual machine.")
 
-    except FileNotFoundError as e:
-        log_action(challenge_path, f"File not found error: {e}")
-        print(f"Error: {e}")
+    except FileNotFoundError:
+        raise NoVPNFilesFoundError(challenge_path)
+    except subprocess.CalledProcessError as e:
+        raise VPNConnectionError(f"Failed to connect to VPN: {e}")
     except Exception as e:
-        log_action(challenge_path, f"Unexpected error: {e}")
-        print(f"Unexpected error: {e}")
+        log_action(challenge_path, f"Unexpected error while connecting to VPN: {e}")
+        raise VPNConnectionError(f"Unexpected error: {e}")
