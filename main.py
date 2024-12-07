@@ -1,6 +1,7 @@
 from scripts.setup import create_challenge
 from scripts.connect_vpn import connect_vpn
 from scripts.scenarios import list_scenarios, run_scenario, validate_scenarios
+from scripts.run_tool import run_tools_menu
 from scripts.utils import load_config
 
 def main_menu():
@@ -25,7 +26,7 @@ def main_menu():
         elif choice == "3":
             scenarios_menu()
         elif choice == "4":
-            run_tool.run_tools_menu()
+            run_tools_menu()
         elif choice == "5":
             report.generate_report()
         elif choice == "6":
