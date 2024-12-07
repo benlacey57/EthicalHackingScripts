@@ -1,0 +1,20 @@
+{
+  "output_file": "gobuster.txt",
+  "presets": [
+    {
+      "name": "directory",
+      "description": "Scan for directories using a medium-sized wordlist.",
+      "command": "dir -u http://{ip}/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt"
+    },
+    {
+      "name": "dns",
+      "description": "Perform DNS subdomain enumeration using a common subdomains list.",
+      "command": "dns -d {domain} -w /usr/share/wordlists/dns/subdomains-top1million-110000.txt"
+    },
+    {
+      "name": "vhost",
+      "description": "Discover virtual hosts using a vhost wordlist.",
+      "command": "vhost -u http://{ip}/ -w /usr/share/wordlists/vhosts.txt"
+    }
+  ]
+}
