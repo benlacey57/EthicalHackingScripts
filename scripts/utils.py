@@ -2,6 +2,7 @@ import os
 import json
 from datetime import datetime
 
+
 def load_challenge_metadata(challenge_path):
     """
     Loads the metadata file for a specific challenge.
@@ -21,6 +22,7 @@ def load_challenge_metadata(challenge_path):
     with open(metadata_file, "r") as f:
         return json.load(f)
 
+
 def save_challenge_metadata(challenge_path, metadata):
     """
     Saves the metadata file for a specific challenge.
@@ -38,6 +40,7 @@ def save_challenge_metadata(challenge_path, metadata):
     metadata_file = os.path.join(challenge_path, "metadata.json")
     with open(metadata_file, "w") as f:
         json.dump(metadata, f, indent=4)
+
 
 def update_challenge_metadata(challenge_path, updates):
     """
@@ -61,6 +64,56 @@ def update_challenge_metadata(challenge_path, updates):
             metadata[key] = value
 
     save_challenge_metadata(challenge_path, metadata)
+
+
+def add_flag(challenge_path, flag):
+    """
+    Adds a flag to the metadata file with a timestamp.
+
+    Args:
+        challenge_path (str): The path to the challenge directory.
+        flag (str): The flag to add.
+    """
+    update_challenge_metadata(challenge_path, {
+        "flags_found": [{"flag": flag, "timestamp": datetime.now().isoformat()}]
+    })
+
+
+def start_challenge(challenge_path):
+    """
+    Sets the start timestamp for the challenge in the metadata file.
+
+    Args:
+        challenge_path (str): The path to the challenge directory.
+    """
+    update_challenge_metadata(challenge_path, {"start_timestamp": datetime.now().isoformat()})
+
+
+def end_challenge(challenge_path):
+    """
+    Sets the end timestamp for the challenge in the metadata file.
+
+    Args:
+        challenge_path (str): The path to the challenge directory.
+    """
+    update_challenge_metadata(challenge_path, {"end_timestamp": datetime.now().isoformat()})
+
+
+
+def add_attack_vectors(challenge_path, service, version, vectors):
+    """
+    Adds attack vectors to the metadata file for a specific service and version.
+
+    Args:
+        challenge_path (str): The path to the challenge directory.
+        service (str): The service name (e.g., "http").
+        version (str): The version of the service (e.g., "Apache/2.4.41").
+        vectors (list): A list of attack vectors.
+    """
+    update_challenge_metadata(challenge_path, {
+        "attack_vectors": [{"service": service, "version": version, "vectors": vectors}]
+    })
+
 
 def log_action(challenge_path, message, context=None):
     """
