@@ -1,0 +1,20 @@
+{
+  "output_file": "searchsploit.txt",
+  "presets": [
+    {
+      "name": "exploit-search",
+      "description": "Search for exploits matching a specific service and version.",
+      "command": "--exact {query} -o {output_file}"
+    },
+    {
+      "name": "version-search",
+      "description": "Search for exploits with partial version matching.",
+      "command": "{query} --author -o {output_file}"
+    },
+    {
+      "name": "list-all",
+      "description": "List all exploits for a keyword.",
+      "command": "{query} -o {output_file}"
+    }
+  ]
+}
