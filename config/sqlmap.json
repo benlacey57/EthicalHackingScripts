@@ -1,0 +1,20 @@
+{
+  "output_file": "sqlmap.txt",
+  "presets": [
+    {
+      "name": "basic-scan",
+      "description": "Test for SQL injection vulnerabilities on a URL.",
+      "command": "-u http://{ip}/vulnerable.php?id=1"
+    },
+    {
+      "name": "dump-database",
+      "description": "Dump all data from the database.",
+      "command": "-u http://{ip}/vulnerable.php?id=1 --dump"
+    },
+    {
+      "name": "current-user",
+      "description": "Retrieve the current database user.",
+      "command": "-u http://{ip}/vulnerable.php?id=1 --current-user"
+    }
+  ]
+}
