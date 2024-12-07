@@ -1,7 +1,7 @@
 import os
 import json
-from scripts.run_tool import run_tool
-from scripts.utils import load_config
+from scripts import run_tool
+from scripts import utils
 
 def list_scenarios():
     """Lists all available scenarios."""
