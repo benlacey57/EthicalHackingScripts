@@ -1,24 +1,6 @@
 import os
 import json
-
-def load_config(tool_name):
-    """
-    Loads the configuration file for a specific tool.
-    
-    Args:
-        tool_name (str): The name of the tool (e.g., 'nmap', 'gobuster').
-    
-    Returns:
-        dict: The configuration data for the tool.
-    
-    Raises:
-        FileNotFoundError: If the configuration file does not exist.
-    """
-    config_file = os.path.join("config", f"{tool_name}.json")
-    if not os.path.exists(config_file):
-        raise FileNotFoundError(f"Config file for {tool_name} not found.")
-    with open(config_file, "r") as f:
-        return json.load(f)
+from datetime import datetime
 
 def load_challenge_metadata(challenge_path):
     """
@@ -39,90 +21,65 @@ def load_challenge_metadata(challenge_path):
     with open(metadata_file, "r") as f:
         return json.load(f)
 
-def validate_command(tool, preset):
+def save_challenge_metadata(challenge_path, metadata):
     """
-    Validates whether a given tool and preset exist in the configurations.
+    Saves the metadata file for a specific challenge.
 
     Args:
-        tool (str): The name of the tool (e.g., 'nmap').
-        preset (str): The name of the preset to validate.
+        challenge_path (str): The path to the challenge directory.
+        metadata (dict): The metadata to save.
 
     Returns:
-        bool: True if the tool and preset are valid, False otherwise.
-    """
-    try:
-        config = load_config(tool)
-        for p in config.get("presets", []):
-            if p["name"] == preset:
-                return True
-        return False
-    except FileNotFoundError:
-        return False
+        None
 
-def log_action(challenge_path, message):
+    Raises:
+        Exception: If the metadata file cannot be written.
     """
-    Logs a message to the challenge's log file.
+    metadata_file = os.path.join(challenge_path, "metadata.json")
+    with open(metadata_file, "w") as f:
+        json.dump(metadata, f, indent=4)
+
+def update_challenge_metadata(challenge_path, updates):
+    """
+    Updates the metadata file for a specific challenge with provided changes.
+
+    Args:
+        challenge_path (str): The path to the challenge directory.
+        updates (dict): Key-value pairs to update in the metadata.
+
+    Returns:
+        None
+    """
+    metadata = load_challenge_metadata(challenge_path)
+
+    for key, value in updates.items():
+        if isinstance(value, list) and key in metadata:
+            metadata[key].extend(value)
+        elif isinstance(value, dict) and key in metadata:
+            metadata[key].update(value)
+        else:
+            metadata[key] = value
+
+    save_challenge_metadata(challenge_path, metadata)
+
+def log_action(challenge_path, message, context=None):
+    """
+    Logs a message to the challenge's log file with optional context.
 
     Args:
         challenge_path (str): The path to the challenge directory.
         message (str): The message to log.
+        context (dict, optional): Additional context to include in the log.
+
+    Raises:
+        Exception: If logging fails.
     """
     log_file = os.path.join(challenge_path, "challenge.log")
     os.makedirs(challenge_path, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    context_str = ""
+    if context:
+        context_str = " ".join([f"[{k}: {v}]" for k, v in context.items()])
+    log_message = f"[{timestamp}] {context_str} {message}\n"
     with open(log_file, "a") as f:
-        f.write(f"{message}\n")
-
-def prompt_user_input(prompt, default=None):
-    """
-    Prompts the user for input with an optional default value.
-
-    Args:
-        prompt (str): The prompt to display to the user.
-        default (str, optional): The default value to return if the user enters nothing.
-
-    Returns:
-        str: The user's input, or the default value if no input is provided.
-    """
-    if default:
-        user_input = input(f"{prompt} [{default}]: ")
-        return user_input.strip() or default
-    return input(f"{prompt}: ").strip()
-
-def check_and_create_directory(directory):
-    """
-    Checks if a directory exists, and creates it if it does not.
-
-    Args:
-        directory (str): The directory path to check or create.
-    """
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-def validate_json_keys(data, required_keys):
-    """
-    Validates that a JSON object contains all required keys.
-
-    Args:
-        data (dict): The JSON object to validate.
-        required_keys (list): A list of required keys.
-
-    Returns:
-        list: A list of missing keys, or an empty list if all keys are present.
-    """
-    missing_keys = [key for key in required_keys if key not in data]
-    return missing_keys
-
-def format_task_summary(tasks):
-    """
-    Formats a list of tasks into a summary string.
-
-    Args:
-        tasks (list): A list of task dictionaries, each with 'name' and 'command'.
-
-    Returns:
-        str: A formatted string summarizing the tasks.
-    """
-    summary = "\nTask Summary:\n"
-    for idx, task in enumerate(tasks, start=1):
-        summary += f"{idx}. {task['name']} - Command: {task['command']}\n"
-    return summary
+        f.write(log_message)
