@@ -15,6 +15,16 @@
       "name": "no-dns",
       "description": "Scan without resolving DNS.",
       "command": "-h {ip} -nossl"
+    },
+    {
+      "name": "verbose-scan",
+      "description": "Performs a scan with verbose output.",
+      "command": "-h {ip} -v -o {output_file}"
+    },
+    {
+      "name": "mutation-scan",
+      "description": "Performs a scan with mutation testing for vulnerabilities.",
+      "command": "-h {ip} -mutate 3 -o {output_file}"
     }
   ]
 }
