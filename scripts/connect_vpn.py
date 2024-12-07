@@ -5,39 +5,44 @@ from scripts.log_manager import log_action
 
 def connect_vpn():
     """
-    Connects to the VPN using the .ovpn file located in the challenge directory.
-    
-    Prompts the user for the challenge name and ensures the .ovpn file exists.
-    Logs the connection process.
+    Connects to the VPN using the newest .ovpn file in the challenge directory.
+
+    Runs the VPN connection in a separate process so the main menu remains usable.
     """
     try:
         # Prompt user for challenge name
         challenge_name = prompt_user_input("Enter the challenge name").capitalize()
-        
+
         # Load base directory from config and challenge metadata
         base_path = os.path.expanduser(load_config("base")["base_directory"])
         challenge_path = os.path.join(base_path, challenge_name)
         metadata = load_challenge_metadata(challenge_path)
 
-        # Check for the .ovpn file
-        ovpn_file = os.path.join(challenge_path, f"{challenge_name}.ovpn")
-        if not os.path.exists(ovpn_file):
-            raise FileNotFoundError(f"No .ovpn file found for challenge '{challenge_name}' at {ovpn_file}.")
+        # Find the newest .ovpn file in the challenge directory
+        ovpn_files = [
+            os.path.join(challenge_path, f) for f in os.listdir(challenge_path) if f.endswith(".ovpn")
+        ]
+        if not ovpn_files:
+            raise FileNotFoundError(f"No .ovpn files found in the challenge directory '{challenge_path}'.")
+        
+        # Select the newest file based on modification time
+        ovpn_file = max(ovpn_files, key=os.path.getmtime)
 
         # Log the connection attempt
-        log_action(challenge_path, f"Attempting to connect to VPN for challenge '{challenge_name}'.")
+        log_action(challenge_path, f"Attempting to connect to VPN using '{ovpn_file}' for challenge '{challenge_name}'.")
 
-        # Connect to the VPN
-        print(f"Connecting to VPN using {ovpn_file}...")
-        subprocess.run(["sudo", "openvpn", "--config", ovpn_file], check=True)
-
-        # Log the successful connection
-        log_action(challenge_path, "VPN connection established successfully.")
+        # Connect to the VPN in a separate process
+        print(f"Connecting to VPN using {ovpn_file} in a new process...")
+        process = subprocess.Popen(
+            ["sudo", "openvpn", "--config", ovpn_file],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        log_action(challenge_path, "VPN connection process started successfully.")
+        print("VPN connection started. You can continue using the menu.")
 
     except FileNotFoundError as e:
         print(f"Error: {e}")
-    except subprocess.CalledProcessError as e:
-        log_action(challenge_path, f"VPN connection failed: {e}")
-        print(f"Error: Failed to connect to VPN. Check your configuration and try again.")
     except Exception as e:
         print(f"Unexpected error: {e}")
