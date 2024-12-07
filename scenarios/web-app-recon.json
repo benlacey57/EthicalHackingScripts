@@ -1,0 +1,22 @@
+{
+  "name": "Web App Recon",
+  "description": "Focuses on web application reconnaissance, including directory enumeration and parameter fuzzing.",
+  "tasks": [
+    {
+      "name": "Gobuster Directory Enumeration",
+      "command": "gobuster directory-enum"
+    },
+    {
+      "name": "Gobuster Vhosts Enumeration",
+      "command": "gobuster vhosts-enum"
+    },
+    {
+      "name": "Gobuster Parameter Fuzzing",
+      "command": "gobuster parameter-fuzzing"
+    },
+    {
+      "name": "Searchsploit for Exploits",
+      "command": "searchsploit exploit-search"
+    }
+  ]
+}
