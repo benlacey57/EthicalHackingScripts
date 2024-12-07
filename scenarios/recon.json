@@ -1,0 +1,14 @@
+{
+  "name": "Recon",
+  "description": "Performs initial reconnaissance tasks including Nmap and Gobuster.",
+  "tasks": [
+    {
+      "name": "Nmap Stealth Scan",
+      "command": "nmap stealth"
+    },
+    {
+      "name": "Gobuster Directory Scan",
+      "command": "gobuster directory"
+    }
+  ]
+}
