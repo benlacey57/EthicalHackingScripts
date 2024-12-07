@@ -1,0 +1,22 @@
+{
+  "name": "WordPress Recon",
+  "description": "Performs WordPress-specific reconnaissance using WPScan.",
+  "tasks": [
+    {
+      "name": "Enumerate WordPress Users",
+      "command": "wpscan enumerate-users"
+    },
+    {
+      "name": "Enumerate WordPress Plugins",
+      "command": "wpscan enumerate-plugins"
+    },
+    {
+      "name": "Enumerate WordPress Themes",
+      "command": "wpscan enumerate-themes"
+    },
+    {
+      "name": "WordPress Vulnerability Scan",
+      "command": "wpscan vulnerability-scan"
+    }
+  ]
+}
