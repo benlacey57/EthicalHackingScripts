@@ -12,7 +12,7 @@
     },
     {
       "name": "Search Vulnerabilities",
-      "tool": "vulnerability_search"
+      "command": "vulnerability_search"
     }
   ]
 }
