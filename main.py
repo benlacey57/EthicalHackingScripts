@@ -1,6 +1,12 @@
+from scripts import setup, connect_vpn, run_tool, report
 from scripts.scenarios import list_scenarios, run_scenario, validate_scenarios
+from scripts.utils import load_config
+import os
 
 def main_menu():
+    """
+    Main menu for the HTB Challenge Tool.
+    """
     while True:
         print("\nHTB Challenge Tool")
         print("1. Set up a new challenge")
@@ -31,8 +37,16 @@ def main_menu():
             print("Invalid choice. Please try again.")
 
 def scenarios_menu():
-    """Lists scenarios and allows the user to select one to execute."""
+    """
+    Displays the scenarios menu, listing available scenarios
+    and allowing the user to select one to execute.
+    """
     scenarios = list_scenarios()
+
+    if not scenarios:
+        print("\nNo scenarios available.")
+        return
+
     print("\nAvailable Scenarios:")
     for idx, scenario in enumerate(scenarios, start=1):
         print(f"{idx}. {scenario['name']} - {scenario['description']}")
@@ -45,6 +59,7 @@ def scenarios_menu():
         base_path = load_config("base")["base_directory"]
         challenge_path = os.path.join(os.path.expanduser(base_path), challenge_name)
 
+        # Show a summary of the scenario tasks
         print("\nScenario Summary:")
         for task in scenario["tasks"]:
             print(f"- {task['name']}: {task['command']}")
@@ -56,3 +71,8 @@ def scenarios_menu():
             print("Scenario execution canceled.")
     except (IndexError, ValueError):
         print("Invalid choice. Returning to menu.")
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    main_menu()
