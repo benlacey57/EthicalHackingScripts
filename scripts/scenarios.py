@@ -2,6 +2,7 @@ import os
 import json
 from scripts import run_tool
 from scripts import utils
+from scripts.exceptions import ScenarioFileNotFoundError, InvalidScenarioStructureError, ScenarioExecutionError
 
 def list_scenarios():
     """Lists all available scenarios."""
@@ -77,9 +78,16 @@ def run_scenario(scenario_name, challenge_path):
     """Executes all tasks in the given scenario."""
     try:
         scenario = load_scenario(scenario_name)
+        
+        # Validate scenario structure
+        required_keys = ["name", "tasks"]
+        missing_keys = [key for key in required_keys if key not in scenario]
+        if missing_keys:
+            raise InvalidScenarioStructureError(scenario["name"], missing_keys)
+            
         print(f"\nRunning Scenario: {scenario['name']}")
         print(scenario["description"])
-
+        
         """Executes all tasks in the given scenario."""
         for task in scenario["tasks"]:
             try:
@@ -93,4 +101,4 @@ def run_scenario(scenario_name, challenge_path):
         print("\n")
         print("\nScenario completed successfully.")
     except Exception as e:
-        print(f"Error running scenario: {e}")
+        raise ScenarioExecutionError(task["name"], str(e))
