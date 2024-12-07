@@ -1,7 +1,26 @@
 import os
 import json
+import subprocess
 from datetime import datetime
 
+def load_config(tool_name):
+    """
+    Loads the configuration file for a specific tool.
+    
+    Args:
+        tool_name (str): The name of the tool (e.g., 'nmap', 'gobuster').
+    
+    Returns:
+        dict: The configuration data for the tool.
+    
+    Raises:
+        FileNotFoundError: If the configuration file does not exist.
+    """
+    config_file = os.path.join("config", f"{tool_name}.json")
+    if not os.path.exists(config_file):
+        raise FileNotFoundError(f"Config file for {tool_name} not found.")
+    with open(config_file, "r") as f:
+        return json.load(f)
 
 def load_challenge_metadata(challenge_path):
     """
@@ -22,7 +41,6 @@ def load_challenge_metadata(challenge_path):
     with open(metadata_file, "r") as f:
         return json.load(f)
 
-
 def save_challenge_metadata(challenge_path, metadata):
     """
     Saves the metadata file for a specific challenge.
@@ -40,7 +58,6 @@ def save_challenge_metadata(challenge_path, metadata):
     metadata_file = os.path.join(challenge_path, "metadata.json")
     with open(metadata_file, "w") as f:
         json.dump(metadata, f, indent=4)
-
 
 def update_challenge_metadata(challenge_path, updates):
     """
@@ -65,55 +82,47 @@ def update_challenge_metadata(challenge_path, updates):
 
     save_challenge_metadata(challenge_path, metadata)
 
-
-def add_flag(challenge_path, flag):
+def search_vulnerabilities_kali(service, version):
     """
-    Adds a flag to the metadata file with a timestamp.
+    Searches for vulnerabilities using the local vulnerability database (searchsploit).
 
     Args:
-        challenge_path (str): The path to the challenge directory.
-        flag (str): The flag to add.
+        service (str): The name of the service (e.g., 'http').
+        version (str): The version of the service (e.g., 'Apache/2.4.41').
+
+    Returns:
+        list: A list of vulnerabilities, each containing name, summary, and link.
+
+    Raises:
+        Exception: If the search fails or no vulnerabilities are found.
     """
-    update_challenge_metadata(challenge_path, {
-        "flags_found": [{"flag": flag, "timestamp": datetime.now().isoformat()}]
-    })
+    try:
+        query = f"{service} {version}"
+        result = subprocess.run(
+            ["searchsploit", query, "--json"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        if result.returncode != 0:
+            raise Exception(f"Searchsploit error: {result.stderr.strip()}")
 
+        data = json.loads(result.stdout)
+        vulnerabilities = []
+        for exploit in data.get("RESULTS_EXPLOIT", []):
+            vulnerabilities.append({
+                "name": exploit.get("Title", "Unknown"),
+                "summary": exploit.get("Description", "No description available."),
+                "link": f"https://www.exploit-db.com/exploits/{exploit.get('EDB-ID', 'Unknown')}"
+            })
 
-def start_challenge(challenge_path):
-    """
-    Sets the start timestamp for the challenge in the metadata file.
+        if not vulnerabilities:
+            raise Exception("No vulnerabilities found for the given query.")
 
-    Args:
-        challenge_path (str): The path to the challenge directory.
-    """
-    update_challenge_metadata(challenge_path, {"start_timestamp": datetime.now().isoformat()})
+        return vulnerabilities
 
-
-def end_challenge(challenge_path):
-    """
-    Sets the end timestamp for the challenge in the metadata file.
-
-    Args:
-        challenge_path (str): The path to the challenge directory.
-    """
-    update_challenge_metadata(challenge_path, {"end_timestamp": datetime.now().isoformat()})
-
-
-
-def add_attack_vectors(challenge_path, service, version, vectors):
-    """
-    Adds attack vectors to the metadata file for a specific service and version.
-
-    Args:
-        challenge_path (str): The path to the challenge directory.
-        service (str): The service name (e.g., "http").
-        version (str): The version of the service (e.g., "Apache/2.4.41").
-        vectors (list): A list of attack vectors.
-    """
-    update_challenge_metadata(challenge_path, {
-        "attack_vectors": [{"service": service, "version": version, "vectors": vectors}]
-    })
-
+    except Exception as e:
+        raise Exception(f"Error searching vulnerabilities: {e}")
 
 def log_action(challenge_path, message, context=None):
     """
