@@ -1,7 +1,8 @@
 from scripts import setup, connect_vpn, run_tool, report
-from scripts.scenarios import list_scenarios, run_scenario, validate_scenarios
-from scripts.utils import load_config
+from scripts import scenarios
+from scripts import utils
 import os
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 def main_menu():
     """
