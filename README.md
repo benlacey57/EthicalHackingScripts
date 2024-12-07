@@ -38,10 +38,13 @@ The **HTB Challenge Tool** is a Python-based utility designed to streamline the 
 
 ## Installation
 
+This script is intended to be run inside Parrot or Kali Linux installations where most of the tools are already installed.
+
 ### Prerequisites
 
 - Python 3.8 or higher
 - Linux-based environment (recommended)
+- Python venv (Virtual Environment Manager)
 - Required tools installed on the system:
   - **Nmap**
   - **Gobuster**
@@ -55,7 +58,18 @@ The **HTB Challenge Tool** is a Python-based utility designed to streamline the 
    git@github.com:benlacey57/EthicalHackingScripts.git
    cd htb_tool```
 
-2. Install Python dependencies:
+2. Install Python venv:
+   ```bash
+   sudo apt-get install -y python3.12-venv
+   ```
+
+3. Create a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+    
+4. Install Python dependencies in the virtual environment:
 ```bash
 pip install -r requirements.txt
 ```
