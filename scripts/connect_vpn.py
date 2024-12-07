@@ -2,6 +2,7 @@ import os
 import subprocess
 from scripts.utils import prompt_user_input, load_config, load_challenge_metadata
 from scripts.log_manager import log_action
+from scripts.exceptions import NoVPNFilesFoundError, VPNConnectionError
 
 def connect_vpn():
     """
@@ -32,7 +33,7 @@ def connect_vpn():
         log_action(challenge_path, f"Attempting to connect to VPN using '{ovpn_file}' for challenge '{challenge_name}'.")
 
         # Connect to the VPN in a separate process
-        print(f"Connecting to VPN using {ovpn_file} in a new process...")
+        print(f"Connecting to VPN using {ovpn_file} ...")
         process = subprocess.Popen(
             ["sudo", "openvpn", "--config", ovpn_file],
             stdout=subprocess.PIPE,
