@@ -80,11 +80,17 @@ def run_scenario(scenario_name, challenge_path):
         print(f"\nRunning Scenario: {scenario['name']}")
         print(scenario["description"])
 
+        """Executes all tasks in the given scenario."""
         for task in scenario["tasks"]:
-            print(f"\nExecuting Task: {task['name']}")
-            tool, preset = task["command"].split()
-            run_tool(tool, preset, challenge_path)
-        
+            try:
+                print(f"\nExecuting Task: {task['name']}")
+                tool, preset = task["command"].split()
+                run_tool(tool, preset, challenge_path)
+                log_action(challenge_path, f"Task '{task['name']}' executed successfully.")
+            except Exception as e:
+                print(f"Error executing task '{task['name']}': {e}")
+                log_action(challenge_path, f"Task '{task['name']}' failed with error: {e}")
+        print("\n")
         print("\nScenario completed successfully.")
     except Exception as e:
         print(f"Error running scenario: {e}")
