@@ -4,10 +4,67 @@ from scripts.run_tool import run_tool
 from scripts.utils import load_config
 
 def list_scenarios():
-    """Lists all available scenarios in the scenarios folder."""
+    """Lists all available scenarios."""
     scenario_folder = "scenarios"
-    return [file.split(".")[0] for file in os.listdir(scenario_folder) if file.endswith(".json")]
+    scenarios = []
+    for file in os.listdir(scenario_folder):
+        if file.endswith(".json"):
+            with open(os.path.join(scenario_folder, file), "r") as f:
+                try:
+                    data = json.load(f)
+                    scenarios.append({
+                        "name": data.get("name", "Unnamed Scenario"),
+                        "description": data.get("description", "No description available."),
+                        "file": file
+                    })
+                except json.JSONDecodeError:
+                    scenarios.append({"name": "Invalid Scenario", "description": "Error reading JSON.", "file": file})
+    return scenarios
 
+def validate_scenarios():
+    """Validates all scenario JSON files."""
+    scenario_folder = "scenarios"
+    report = []
+
+    for file in os.listdir(scenario_folder):
+        if file.endswith(".json"):
+            issues = []
+            scenario_file = os.path.join(scenario_folder, file)
+
+            try:
+                with open(scenario_file, "r") as f:
+                    data = json.load(f)
+
+                # Check required keys
+                for key in ["name", "description", "tasks"]:
+                    if key not in data:
+                        issues.append(f"Missing key: {key}")
+
+                # Check tasks
+                for task in data.get("tasks", []):
+                    if "name" not in task or "command" not in task:
+                        issues.append(f"Task missing required keys: {task}")
+                    else:
+                        # Validate command
+                        tool, preset = task["command"].split()
+                        if not validate_command(tool, preset):
+                            issues.append(f"Invalid command: {task['command']}")
+
+            except json.JSONDecodeError:
+                issues.append("Invalid JSON format.")
+
+            report.append({"file": file, "issues": issues})
+
+    # Generate report
+    print("\nScenario Validation Report:")
+    for entry in report:
+        print(f"\nFile: {entry['file']}")
+        if entry["issues"]:
+            for issue in entry["issues"]:
+                print(f"- {issue}")
+        else:
+            print("No issues found.")
+            
 def load_scenario(scenario_name):
     """Loads a scenario JSON file."""
     scenario_file = os.path.join("scenarios", f"{scenario_name}.json")
