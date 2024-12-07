@@ -9,6 +9,10 @@
     {
       "name": "Gobuster Directory Scan",
       "command": "gobuster directory"
+    },
+    {
+      "name": "Search Vulnerabilities",
+      "tool": "vulnerability_search"
     }
   ]
 }
