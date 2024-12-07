@@ -40,7 +40,7 @@ def connect_vpn():
             text=True
         )
         log_action(challenge_path, "VPN connection process started successfully.")
-        print("VPN connection started. You can continue using the menu.")
+        print("VPN connection started successfully. Make sure you can ping the virtual machine.")
 
     except FileNotFoundError as e:
         print(f"Error: {e}")
