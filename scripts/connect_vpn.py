@@ -1,6 +1,6 @@
 import os
 import subprocess
-from scripts.utils import prompt_user_input, load_challenge_metadata
+from scripts.utils import prompt_user_input, load_config, load_challenge_metadata
 from scripts.log_manager import log_action
 
 def connect_vpn():
@@ -14,7 +14,7 @@ def connect_vpn():
         # Prompt user for challenge name
         challenge_name = prompt_user_input("Enter the challenge name").capitalize()
         
-        # Load challenge metadata and directory
+        # Load base directory from config and challenge metadata
         base_path = os.path.expanduser(load_config("base")["base_directory"])
         challenge_path = os.path.join(base_path, challenge_name)
         metadata = load_challenge_metadata(challenge_path)
