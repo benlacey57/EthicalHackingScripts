@@ -4,6 +4,7 @@ from scripts import utils
 import os
 import sys
 
+# If the scripts directory isn’t recognized, Python might need the project root added to its path.
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 def main_menu():
