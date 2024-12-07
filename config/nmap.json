@@ -1,0 +1,35 @@
+{
+  "output_file": "nmap.txt",
+  "presets": [
+    {
+      "name": "combined-scan",
+      "description": "Performs stealth, service version detection, and full port scans.",
+      "command": "-sS -sV -p- -oN {output_file}"
+    },
+    {
+        "name": "stealth-scan",
+        "description": 'Scans for common ports in stealth mode to avoid detection",
+        "command": "-sS -sV -F"
+    },
+    {
+      "name": "quick-scan",
+      "description": "Scans common ports quickly.",
+      "command": "-F"
+    },
+    {
+      "name": "os-detection",
+      "description": "Detects operating system details.",
+      "command": "-O"
+    },
+    {
+      "name": "aggressive-scan",
+      "description": "Performs an aggressive scan with additional details.",
+      "command": "-A"
+    },
+    {
+      "name": "top-ports-scan",
+      "description": "Scans the top 100 ports.",
+      "command": "--top-ports 100"
+    }
+  ]
+}
