@@ -6,9 +6,14 @@ from scripts.exceptions import NoVPNFilesFoundError, VPNConnectionError
 
 def connect_vpn():
     """
-    Connects to the VPN using the newest .ovpn file in the challenge directory.
+    Connect to the VPN using the specified .ovpn file in a separate process.
 
-    Runs the VPN connection in a separate process so the main menu remains usable.
+    Args:
+        challenge_path (str): Path to the challenge directory.
+        ovpn_file (str): Path to the .ovpn file to use.
+
+    Raises:
+        VPNConnectionError: If the VPN connection fails.
     """
     try:
         # Prompt user for challenge name
@@ -44,6 +49,8 @@ def connect_vpn():
         print("VPN connection started successfully. Make sure you can ping the virtual machine.")
 
     except FileNotFoundError as e:
+        log_action(challenge_path, f"File not found error: {e}")
         print(f"Error: {e}")
     except Exception as e:
+        log_action(challenge_path, f"Unexpected error: {e}")
         print(f"Unexpected error: {e}")
