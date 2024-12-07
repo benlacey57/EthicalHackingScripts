@@ -1,6 +1,17 @@
 {
   "output_file": "hydra.txt",
   "presets": [
+
+    {
+      "name": "ftp-bruteforce",
+      "description": "Performs brute force on FTP login credentials.",
+      "command": "-L /usr/share/wordlists/users.txt -P /usr/share/wordlists/passwords.txt ftp://{ip} -o {output_file}"
+    },   
+    {
+      "name": "smtp-bruteforce",
+      "description": "Performs brute force on SMTP login credentials.",
+      "command": "-L /usr/share/wordlists/users.txt -P /usr/share/wordlists/passwords.txt smtp://{ip} -o {output_file}"
+    },
     {
       "name": "ssh-bruteforce",
       "description": "Attempt SSH brute force with a common username/password list.",
@@ -12,7 +23,7 @@
       "command": "-L /usr/share/wordlists/usernames.txt -P /usr/share/wordlists/passwords.txt ftp://{ip}"
     },
     {
-      "name": "http-login",
+      "name": "login-bruteforce",
       "description": "Perform brute force attack on a web login form.",
       "command": "-l admin -P /usr/share/wordlists/rockyou.txt http-post-form '/login:username=^USER^&password=^PASS^:F=Invalid'"
     }
