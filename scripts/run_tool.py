@@ -3,6 +3,7 @@ import os
 import subprocess
 from scripts.utils import load_config, validate_command, prompt_user_input
 from scripts.log_manager import log_action
+from scripts.exceptions import ConfigFileNotFoundError, InvalidPresetError, ToolExecutionError
 
 def run_tool(tool_name, preset, challenge_path):
     """
@@ -20,12 +21,15 @@ def run_tool(tool_name, preset, challenge_path):
     try:
         # Load tool configuration
         config = load_config(tool_name)
+        if not config:
+            raise ConfigFileNotFoundError(tool_name)
+            
         output_file = config.get("output_file", f"{tool_name}.txt")
 
         # Validate the preset
         preset_config = next((p for p in config.get("presets", []) if p["name"] == preset), None)
         if not preset_config:
-            raise ValueError(f"Preset '{preset}' not found for tool '{tool_name}'.")
+            raise InvalidPresetError(preset, tool_name)
 
         # Construct the command
         command = preset_config["command"]
@@ -47,8 +51,7 @@ def run_tool(tool_name, preset, challenge_path):
         log_action(challenge_path, f"Error: {e}")
         print(f"Error: {e}")
     except subprocess.CalledProcessError as e:
-        log_action(challenge_path, f"Tool '{tool_name}' failed with error: {e}")
-        print(f"Error: Tool execution failed. Check logs for details.")
+        raise ToolExecutionError(tool_name, str(e))
     except Exception as e:
         log_action(challenge_path, f"Unexpected error while running tool '{tool_name}': {e}")
         print(f"Unexpected error: {e}")
