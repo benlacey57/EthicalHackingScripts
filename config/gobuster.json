@@ -2,19 +2,29 @@
   "output_file": "gobuster.txt",
   "presets": [
     {
-      "name": "directory",
-      "description": "Scan for directories using a medium-sized wordlist.",
-      "command": "dir -u http://{ip}/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt"
+      "name": "directory-enum",
+      "description": "Discover directories using a medium wordlist.",
+      "command": "dir -u http://{ip}/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -o {output_file}"
     },
     {
-      "name": "dns",
-      "description": "Perform DNS subdomain enumeration using a common subdomains list.",
-      "command": "dns -d {domain} -w /usr/share/wordlists/dns/subdomains-top1million-110000.txt"
+      "name": "vhosts-enum",
+      "description": "Discover virtual hosts on the target.",
+      "command": "vhost -u http://{ip} -w /usr/share/wordlists/vhosts.txt -o {output_file}"
     },
     {
-      "name": "vhost",
-      "description": "Discover virtual hosts using a vhost wordlist.",
-      "command": "vhost -u http://{ip}/ -w /usr/share/wordlists/vhosts.txt"
+      "name": "dns-enum",
+      "description": "Enumerate DNS records for the target.",
+      "command": "dns -d {domain} -w /usr/share/wordlists/dns.txt -o {output_file}"
+    },
+    {
+      "name": "subdomain-enum",
+      "description": "Enumerate subdomains for the target.",
+      "command": "subdomains -d {domain} -w /usr/share/wordlists/subdomains.txt -o {output_file}"
+    },
+    {
+      "name": "large-directory-enum",
+      "description": "Discover directories using a large wordlist.",
+      "command": "dir -u http://{ip}/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-large.txt -o {output_file}"
     }
   ]
 }
