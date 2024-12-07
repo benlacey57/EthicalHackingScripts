@@ -1,0 +1,25 @@
+{
+  "output_file": "johntheripper.txt",
+  "presets": [
+    {
+      "name": "default-hash-crack",
+      "description": "Attempts to crack a password hash using a wordlist.",
+      "command": "--wordlist=/usr/share/wordlists/rockyou.txt {hash_file} --format=raw-md5 --pot={output_file}"
+    },
+    {
+      "name": "zip-file-crack",
+      "description": "Attempts to crack a zip file password.",
+      "command": "--wordlist=/usr/share/wordlists/rockyou.txt {zip_file} --format=zip --pot={output_file}"
+    },
+    {
+      "name": "shadow-file-crack",
+      "description": "Attempts to crack a shadow file.",
+      "command": "--wordlist=/usr/share/wordlists/rockyou.txt {shadow_file} --pot={output_file}"
+    },
+    {
+      "name": "pdf-file-crack",
+      "description": "Attempts to crack a PDF file password.",
+      "command": "--wordlist=/usr/share/wordlists/rockyou.txt {pdf_file} --format=pdf --pot={output_file}"
+    }
+  ]
+}
