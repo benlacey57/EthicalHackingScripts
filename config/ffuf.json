@@ -1,0 +1,20 @@
+{
+  "output_file": "ffuf.txt",
+  "presets": [
+    {
+      "name": "directory-enum",
+      "description": "Discover directories using a medium wordlist.",
+      "command": "-u http://{ip}/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt"
+    },
+    {
+      "name": "parameter-fuzzing",
+      "description": "Fuzz GET parameters for hidden functionality.",
+      "command": "-u http://{ip}/index.php?FUZZ=test -w /usr/share/wordlists/parameters.txt"
+    },
+    {
+      "name": "subdomain-enum",
+      "description": "Fuzz DNS subdomains for a target domain.",
+      "command": "-u http://FUZZ.{domain} -w /usr/share/wordlists/dns/subdomains.txt"
+    }
+  ]
+}
