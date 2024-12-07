@@ -2,19 +2,24 @@
   "output_file": "wpscan.txt",
   "presets": [
     {
-      "name": "basic-scan",
-      "description": "Perform a basic WordPress scan.",
-      "command": "--url http://{ip}/"
-    },
-    {
       "name": "enumerate-users",
-      "description": "Enumerate WordPress users.",
-      "command": "--url http://{ip}/ --enumerate u"
+      "description": "Enumerates WordPress users.",
+      "command": "--url {url} --enumerate u -o {output_file}"
     },
     {
-      "name": "plugins-scan",
-      "description": "Enumerate vulnerable plugins.",
-      "command": "--url http://{ip}/ --enumerate p"
+      "name": "enumerate-plugins",
+      "description": "Enumerates WordPress plugins.",
+      "command": "--url {url} --enumerate p -o {output_file}"
+    },
+    {
+      "name": "enumerate-themes",
+      "description": "Enumerates WordPress themes.",
+      "command": "--url {url} --enumerate t -o {output_file}"
+    },
+    {
+      "name": "vulnerability-scan",
+      "description": "Performs a WordPress vulnerability scan.",
+      "command": "--url {url} --enumerate vp --plugins-detection mixed -o {output_file}"
     }
   ]
 }
