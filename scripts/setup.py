@@ -15,7 +15,7 @@ def create_challenge():
         base_path = os.path.expanduser(base_config.get("base_directory", "~/HTB"))
 
         # Prompt for challenge name and IP address
-        challenge_name = prompt_user_input("Enter the challenge name").capitalize()
+        challenge_name = prompt_user_input("Enter the challenge name")
         challenge_ip = prompt_user_input("Enter the IP address")
 
         # Validate inputs
