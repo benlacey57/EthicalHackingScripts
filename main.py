@@ -75,9 +75,12 @@ def main_menu():
             from scripts.connect_vpn import connect_vpn
 
             challenge = create_challenge()
-            print("Please move your .ovpn file into the challenge directory.")
+            print("")
+            print("")
+            print("*** Please move your .ovpn file into the challenge directory ***")
+            print("")
             input("Press Enter to continue...")
-            
+
             if challenge:
                 connect_vpn( challenge_path=challenge[1] )
                 
