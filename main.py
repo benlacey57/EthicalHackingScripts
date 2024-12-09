@@ -67,12 +67,12 @@ def main_menu():
         print("")
         choice = input("Enter your choice: ")
         print("")
-        
+
         if choice == "1":
             check_and_install_requirements()
         elif choice == "2":
             from scripts.setup import create_challenge
-            create_challenge()
+            challenge = create_challenge()
 
             from scripts.connect_vpn import connect_vpn
             connect_vpn()

@@ -4,7 +4,7 @@ from scripts.utils import prompt_user_input, load_config, load_challenge_metadat
 from scripts.log_manager import log_action
 from exceptions import NoVPNFilesFoundError, VPNConnectionError
 
-def connect_vpn():
+def connect_vpn( challenge_path, ovpn_file ):
     """
     Connect to the VPN using the specified .ovpn file in a separate process.
 
@@ -15,13 +15,8 @@ def connect_vpn():
     Raises:
         VPNConnectionError: If the VPN connection fails.
     """
-    try:
-        # Prompt user for challenge name
-        challenge_name = prompt_user_input("Enter the challenge name").capitalize()
-
+    try:        
         # Load base directory from config and challenge metadata
-        base_path = os.path.expanduser(load_config("base")["base_directory"])
-        challenge_path = os.path.join(base_path, challenge_name)
         metadata = load_challenge_metadata(challenge_path)
 
         # Find the newest .ovpn file in the challenge directory
@@ -35,7 +30,7 @@ def connect_vpn():
         ovpn_file = max(ovpn_files, key=os.path.getmtime)
 
         # Log the connection attempt
-        log_action(challenge_path, f"Attempting to connect to VPN using '{ovpn_file}' for challenge '{challenge_name}'.")
+        log_action(challenge_path, f"Attempting to connect to VPN using '{ovpn_file}'")
 
         # Connect to the VPN in a separate process
         print(f"Connecting to VPN using {ovpn_file} ...")
@@ -45,13 +40,13 @@ def connect_vpn():
             stderr=subprocess.PIPE,
             text=True
         )
-        log_action(challenge_path, "VPN connection process started successfully.")
+        log_action(challenge_path, "[CONNECTED] VPN connection successful.")
         print("VPN connection started successfully. Make sure you can ping the virtual machine.")
 
     except FileNotFoundError:
         raise NoVPNFilesFoundError(challenge_path)
     except subprocess.CalledProcessError as e:
-        raise VPNConnectionError(f"Failed to connect to VPN: {e}")
+        raise VPNConnectionError(f"[ERROR] Failed to connect to VPN: {e}")
     except Exception as e:
-        log_action(challenge_path, f"Unexpected error while connecting to VPN: {e}")
-        raise VPNConnectionError(f"Unexpected error: {e}")
+        log_action(challenge_path, f"[ERROR] Unexpected error while connecting to VPN: {e}")
+        raise VPNConnectionError(f"[ERROR] Unexpected error: {e}")

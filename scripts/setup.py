@@ -9,6 +9,9 @@ def create_challenge():
 
     Prompts the user for a challenge name and IP address, then creates
     the necessary folder structure and metadata file.
+
+    Returns:
+        list: The challenge name and path if successful.
     """
     try:
         # Load base directory from config
@@ -17,7 +20,6 @@ def create_challenge():
 
         # Prompt for challenge name and IP address
         challenge_name = prompt_user_input("Enter the challenge name")
-        challenge_ip = prompt_user_input("Enter the IP address")
 
         # Validate inputs
         if not challenge_name:
@@ -39,6 +41,8 @@ def create_challenge():
         print(f"Challenge '{challenge_name}' created successfully at {challenge_path}.")
         log_action(challenge_path, f"Challenge created: {metadata}")
 
+        return [challenge_name, challenge_path]
+    
     except Exception as e:
         print(f"Error creating challenge: {e}")
 
