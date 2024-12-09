@@ -4,13 +4,12 @@ from scripts.utils import prompt_user_input, load_config, load_challenge_metadat
 from scripts.log_manager import log_action
 from exceptions import NoVPNFilesFoundError, VPNConnectionError
 
-def connect_vpn( challenge_path, ovpn_file ):
+def connect_vpn( challenge_path ):
     """
     Connect to the VPN using the specified .ovpn file in a separate process.
 
     Args:
         challenge_path (str): Path to the challenge directory.
-        ovpn_file (str): Path to the .ovpn file to use.
 
     Raises:
         VPNConnectionError: If the VPN connection fails.

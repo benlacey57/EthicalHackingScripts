@@ -72,10 +72,10 @@ def main_menu():
             check_and_install_requirements()
         elif choice == "2":
             from scripts.setup import create_challenge
-            challenge = create_challenge()
-
             from scripts.connect_vpn import connect_vpn
-            connect_vpn()
+
+            challenge = create_challenge()            
+            connect_vpn( challenge_path=challenge[1] )
         elif choice == "3":
             from scripts.scenarios import list_scenarios
             list_scenarios()
