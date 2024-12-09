@@ -1,8 +1,8 @@
 import os
 import json
-from scripts import run_tool
-from scripts import utils
-from scripts.exceptions import ScenarioFileNotFoundError, InvalidScenarioStructureError, ScenarioExecutionError
+from scripts.log_manager import log_action
+from scripts.run_tool import run_tool
+from exceptions import InvalidScenarioStructureError, ScenarioExecutionError
 
 def list_scenarios():
     """Lists all available scenarios."""

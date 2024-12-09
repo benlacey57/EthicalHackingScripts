@@ -5,39 +5,90 @@ from scripts.run_tool import run_tools_menu
 from scripts.utils import load_config
 import os
 import sys
+import subprocess
 
 # Add the project root to PYTHONPATH
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+def check_and_install_requirements():
+    """
+    Checks if required dependencies are installed and installs them if not.
+    """
+    requirements = {
+        "nmap": "nmap",
+        "openvpn": "openvpn",
+        "gobuster": "gobuster",
+        "python3": "python3",
+        "pip3": "python3-pip"
+    }
+
+    print("Checking system requirements...")
+    for name, package in requirements.items():
+        try:
+            # Check if the dependency is installed
+            message = f"Checking {name}..."
+            subprocess.run(["which", name], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            print(f"{message} [OK] Already Installed.\n")
+        except subprocess.CalledProcessError:
+            # If not installed, attempt to install it
+            print(f"{message} [ERROR] Not Installed. Installing...")
+            try:
+                subprocess.run(
+                    ["sudo", "apt-get", "update"],
+                    check=True
+                )
+                
+                subprocess.run(
+                    ["sudo", "apt-get", "install", "-y", package],
+                    check=True
+                )
+                print(f"{name} has been installed successfully.\n")
+            except subprocess.CalledProcessError as e:
+                print(f"Failed to install {name}. Please install it manually: {e}")
+
+    print("System requirement check complete!")
+
 def main_menu():
     """
-    Displays the main menu for the HTB Challenge Tool.
+    Displays the main menu for the Ethical Hacking Tool.
     """
     while True:
-        print("\nHTB Challenge Tool")
-        print("1. Set up a new challenge")
-        print("2. Connect to VPN")
-        print("3. Scenarios")
-        print("4. Run tools")
-        print("5. Generate report")
-        print("6. Validate scenario configs")
-        print("7. Exit")
+        print("\nEthical Hacking Tool")
+        print("1. Check and Install Requirements")
+        print("2. Set up a new challenge")
+        print("3. Connect to VPN")
+        print("4. Scenarios")
+        print("5. Run tools")
+        print("6. Generate report")
+        print("7. Validate scenario configs")
+        print("Q. Exit")
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            create_challenge()
+            check_and_install_requirements()
         elif choice == "2":
-            connect_vpn()
+            from scripts.setup import create_challenge
+            create_challenge()
         elif choice == "3":
-            scenarios_menu()
+            from scripts.connect_vpn import connect_vpn
+            connect_vpn()
         elif choice == "4":
-            run_tools_menu()
+            from scripts.scenarios import list_scenarios
+            list_scenarios()
         elif choice == "5":
-            report.generate_report()
+            from scripts.run_tool import run_tool
+            run_tool()
         elif choice == "6":
-            validate_scenarios()
+            from scripts.report import generate_report
+            generate_report()
         elif choice == "7":
+            from scripts.scenarios import validate_scenarios
+            validate_scenarios()
+        elif choice == "q" or choice == "Q":
             print("Exiting...")
             break
         else:
             print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main_menu()

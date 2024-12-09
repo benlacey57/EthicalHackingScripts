@@ -2,7 +2,7 @@ import os
 import subprocess
 from scripts.utils import prompt_user_input, load_config, load_challenge_metadata
 from scripts.log_manager import log_action
-from scripts.exceptions import NoVPNFilesFoundError, VPNConnectionError
+from exceptions import NoVPNFilesFoundError, VPNConnectionError
 
 def connect_vpn():
     """

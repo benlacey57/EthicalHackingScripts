@@ -1,9 +1,9 @@
 
 import os
 import subprocess
-from scripts.utils import load_config, validate_command, prompt_user_input
+from scripts.utils import load_config, prompt_user_input
 from scripts.log_manager import log_action
-from scripts.exceptions import ConfigFileNotFoundError, InvalidPresetError, ToolExecutionError
+from exceptions import ConfigFileNotFoundError, InvalidPresetError, ToolExecutionError
 
 def run_tool(tool_name, preset, challenge_path):
     """

@@ -1,5 +1,9 @@
 import pytest
+import json
+
+from scripts.utils import validate_command, validate_json_keys
 from scripts.utils import load_config
+
 @pytest.fixture
 def mock_nmap_config(tmp_path):
     """Creates a mock nmap configuration file."""

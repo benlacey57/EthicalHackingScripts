@@ -1,6 +1,7 @@
 import os
 import json
-from scripts.utils import prompt_user_input, check_and_create_directory, log_action, load_config
+from scripts.log_manager import log_action
+from scripts.utils import prompt_user_input, check_and_create_directory, load_config
 
 def create_challenge():
     """

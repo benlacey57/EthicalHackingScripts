@@ -1,7 +1,6 @@
 import os
 import json
 import subprocess
-from datetime import datetime
 
 def load_config(tool_name):
     """
@@ -21,6 +20,27 @@ def load_config(tool_name):
         raise FileNotFoundError(f"Config file for {tool_name} not found.")
     with open(config_file, "r") as f:
         return json.load(f)
+
+def check_and_create_directory(directory_path):
+    """
+    Checks if a directory exists and creates it if it doesn't.
+    
+    Args:
+        directory_path (str): The path of the directory to check or create.
+    
+    Returns:
+        bool: True if the directory exists or is created successfully, False otherwise.
+    """
+    try:
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+            print(f"Directory created: {directory_path}")
+        else:
+            print(f"Directory already exists: {directory_path}")
+        return True
+    except OSError as e:
+        print(f"Error creating directory {directory_path}: {e}")
+        return False
 
 def load_challenge_metadata(challenge_path):
     """
@@ -82,7 +102,7 @@ def update_challenge_metadata(challenge_path, updates):
 
     save_challenge_metadata(challenge_path, metadata)
 
-def search_vulnerabilities_kali(service, version):
+def search_vulnerabilities(service, version):
     """
     Searches for vulnerabilities using the local vulnerability database (searchsploit).
 
@@ -123,3 +143,19 @@ def search_vulnerabilities_kali(service, version):
 
     except Exception as e:
         raise Exception(f"Error searching vulnerabilities: {e}")
+
+def prompt_user_input(prompt):
+    """
+    Prompts the user for input with a given prompt message.
+    
+    Args:
+        prompt (str): The message to display to the user.
+        
+    Returns:
+        str: The user's input.
+    """
+    try:
+        return input(f"{prompt}: ").strip()
+    except KeyboardInterrupt:
+        print("\nInput cancelled by user.")
+        return None
