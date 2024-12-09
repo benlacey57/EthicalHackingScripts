@@ -123,25 +123,3 @@ def search_vulnerabilities_kali(service, version):
 
     except Exception as e:
         raise Exception(f"Error searching vulnerabilities: {e}")
-
-def log_action(challenge_path, message, context=None):
-    """
-    Logs a message to the challenge's log file with optional context.
-
-    Args:
-        challenge_path (str): The path to the challenge directory.
-        message (str): The message to log.
-        context (dict, optional): Additional context to include in the log.
-
-    Raises:
-        Exception: If logging fails.
-    """
-    log_file = os.path.join(challenge_path, "challenge.log")
-    os.makedirs(challenge_path, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    context_str = ""
-    if context:
-        context_str = " ".join([f"[{k}: {v}]" for k, v in context.items()])
-    log_message = f"[{timestamp}] {context_str} {message}\n"
-    with open(log_file, "a") as f:
-        f.write(log_message)
