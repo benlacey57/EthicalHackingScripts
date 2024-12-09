@@ -3,6 +3,11 @@ from scripts.connect_vpn import connect_vpn
 from scripts.scenarios import list_scenarios, run_scenario, validate_scenarios
 from scripts.run_tool import run_tools_menu
 from scripts.utils import load_config
+import os
+import sys
+
+# Add the project root to PYTHONPATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def main_menu():
     """
