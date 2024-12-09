@@ -2,6 +2,7 @@ import os
 import json
 from scripts.log_manager import log_action
 from scripts.run_tool import run_tool
+from scripts.utils import validate_command
 from exceptions import InvalidScenarioStructureError, ScenarioExecutionError
 
 def list_scenarios():

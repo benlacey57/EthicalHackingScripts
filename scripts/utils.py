@@ -144,6 +144,40 @@ def search_vulnerabilities(service, version):
     except Exception as e:
         raise Exception(f"Error searching vulnerabilities: {e}")
 
+def validate_command(tool_name, preset, config):
+    """
+    Validates that the given tool and preset exist in the provided configuration.
+
+    Args:
+        tool_name (str): The name of the tool to validate (e.g., 'nmap').
+        preset (str): The name of the preset to validate (e.g., 'quick').
+        config (dict): The configuration dictionary containing tool details.
+
+    Returns:
+        bool: True if the tool and preset are valid, False otherwise.
+
+    Raises:
+        KeyError: If the tool is not found in the configuration.
+        ValueError: If the preset is invalid for the given tool.
+    """
+    try:
+        # Check if the tool exists in the config
+        if tool_name not in config:
+            raise KeyError(f"Tool '{tool_name}' not found in configuration.")
+
+        # Check if the preset exists for the tool
+        presets = [p["name"] for p in config[tool_name].get("presets", [])]
+        if preset not in presets:
+            raise ValueError(f"Preset '{preset}' is not valid for tool '{tool_name}'.")
+
+        return True
+    except KeyError as e:
+        print(f"Validation Error: {e}")
+        return False
+    except ValueError as e:
+        print(f"Validation Error: {e}")
+        return False
+
 def prompt_user_input(prompt):
     """
     Prompts the user for input with a given prompt message.
