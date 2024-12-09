@@ -37,7 +37,7 @@ def check_and_install_requirements():
                     ["sudo", "apt-get", "update"],
                     check=True
                 )
-                
+
                 subprocess.run(
                     ["sudo", "apt-get", "install", "-y", package],
                     check=True
@@ -54,6 +54,7 @@ def main_menu():
     """
     while True:
         print("\nEthical Hacking Tool")
+        print("-" * 25)
         print("1. Check and Install Requirements")
         print("2. Set up a new challenge")
         print("3. Connect to VPN")
@@ -61,27 +62,30 @@ def main_menu():
         print("5. Run tools")
         print("6. Generate report")
         print("7. Validate scenario configs")
+        print("-" * 25)
         print("Q. Exit")
+        print("")
         choice = input("Enter your choice: ")
-
+        print("")
+        
         if choice == "1":
             check_and_install_requirements()
         elif choice == "2":
             from scripts.setup import create_challenge
             create_challenge()
-        elif choice == "3":
+
             from scripts.connect_vpn import connect_vpn
             connect_vpn()
-        elif choice == "4":
+        elif choice == "3":
             from scripts.scenarios import list_scenarios
             list_scenarios()
-        elif choice == "5":
+        elif choice == "4":
             from scripts.run_tool import run_tool
             run_tool()
-        elif choice == "6":
+        elif choice == "5":
             from scripts.report import generate_report
             generate_report()
-        elif choice == "7":
+        elif choice == "6":
             from scripts.scenarios import validate_scenarios
             validate_scenarios()
         elif choice == "q" or choice == "Q":

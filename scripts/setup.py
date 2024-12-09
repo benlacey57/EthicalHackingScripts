@@ -22,8 +22,6 @@ def create_challenge():
         # Validate inputs
         if not challenge_name:
             raise ValueError("Challenge name cannot be empty.")
-        if not challenge_ip:
-            raise ValueError("IP address cannot be empty.")
 
         # Define the challenge directory path
         challenge_path = os.path.join(base_path, challenge_name)
@@ -32,7 +30,7 @@ def create_challenge():
         check_and_create_directory(challenge_path)
 
         # Create metadata file
-        metadata = {"name": challenge_name, "ip": challenge_ip}
+        metadata = {"name": challenge_name, "ip": "", "flags": []}
         metadata_file = os.path.join(challenge_path, "metadata.json")
         with open(metadata_file, "w") as f:
             json.dump(metadata, f, indent=4)
