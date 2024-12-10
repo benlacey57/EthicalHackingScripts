@@ -1,0 +1,23 @@
+<section class="bg-blue-600 text-white min-h-screen flex flex-col justify-center items-center p-10">
+    <!-- Logo -->
+    <img src="images/logo.png" alt="Media Wolf Logo" class="h-24 mb-6">
+
+    <!-- Report Title -->
+    <h1 class="text-5xl font-bold text-center">Ethical Hacking Report</h1>
+
+    <!-- Report Summary -->
+    <p class="text-xl text-center mt-6 max-w-prose">
+        A detailed penetration testing report covering vulnerabilities, risks, and security improvements for the audited system.
+    </p>
+
+    <!-- Date -->
+    <p class="text-lg mt-6">{{ date }}</p>
+
+    <!-- Audited By -->
+    <p class="text-lg mt-2">
+        Audited by: 
+        <a href="{{ website }}" class="text-blue-300 hover:text-blue-400 underline" target="_blank">
+            {{ audited_by }}
+        </a>
+    </p>
+</section>
