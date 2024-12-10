@@ -1,0 +1,10 @@
+<section class="py-10 bg-gray-100">
+    <h2 class="text-3xl font-bold text-center mb-6">Table of Contents</h2>
+    <ul class="list-disc list-inside px-6">
+        {% for tool in tools %}
+        <li class="text-lg">
+            <a href="#{{ tool.name }}" class="text-blue-500 hover:underline">{{ tool.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
