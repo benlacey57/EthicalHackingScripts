@@ -1,55 +1,43 @@
 import os
+import json
+from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
-from scripts.utils import load_challenge_metadata, read_log
 
-def generate_report():
+def generate_report(tool_name, output_file, raw_output, extra_context=None):
     """
-    Generates a consolidated report for a challenge.
+    Generates an HTML report for a specific tool using Jinja2 templates.
 
-    Combines log entries and tool outputs into a single Markdown report file.
-    Prompts the user for the challenge name and saves the report in the challenge directory.
+    Args:
+        tool_name (str): The name of the tool (e.g., 'nmap').
+        output_file (str): Path to save the generated report.
+        raw_output (str): Raw output from the tool to include in the report.
+        extra_context (dict): Additional context to pass to the template.
     """
-    try:
-        # Prompt user for the challenge name
-        challenge_name = input("Enter the challenge name: ").capitalize()
-        base_path = os.path.expanduser(load_config("base")["base_directory"])
-        challenge_path = os.path.join(base_path, challenge_name)
+    # Load definitions
+    definitions_file = os.path.join("reports", "definitions.json")
+    with open(definitions_file, "r") as f:
+        definitions = json.load(f)
 
-        # Validate challenge metadata and directory
-        metadata = load_challenge_metadata(challenge_path)
+    # Get tool-specific details
+    tool_info = definitions.get(tool_name, {})
+    tool_title = tool_info.get("title", "Tool Report")
+    tool_description = tool_info.get("description", "No description available.")
 
-        # Prepare report content
-        report_content = []
-        report_content.append(f"# Report for Challenge: {metadata['name']}\n")
-        report_content.append(f"**IP Address:** {metadata['ip']}\n")
-        report_content.append(f"**Generated on:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
-        report_content.append("## Logs\n")
+    # Load Jinja2 environment
+    env = Environment(loader=FileSystemLoader("reports/templates"))
+    template = env.get_template(f"tools/{tool_name}.html")
 
-        # Add log entries
-        log_file_content = read_log(challenge_path)
-        if log_file_content:
-            report_content.append("```\n" + log_file_content + "\n```\n")
-        else:
-            report_content.append("_No log entries available._\n\n")
+    # Render template
+    rendered_html = template.render(
+        title=tool_title,
+        date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        tool_title=tool_title,
+        tool_description=tool_description,
+        tool_output=raw_output,
+        **(extra_context or {})
+    )
 
-        # Add tool outputs
-        report_content.append("## Tool Outputs\n")
-        for file in os.listdir(challenge_path):
-            if file.endswith(".txt"):
-                file_path = os.path.join(challenge_path, file)
-                with open(file_path, "r") as f:
-                    tool_output = f.read()
-                report_content.append(f"### {file}\n")
-                report_content.append("```\n" + tool_output + "\n```\n")
-
-        # Save the report
-        report_file = os.path.join(challenge_path, "report.md")
-        with open(report_file, "w") as f:
-            f.write("\n".join(report_content))
-
-        print(f"Report generated successfully: {report_file}")
-
-    except FileNotFoundError as e:
-        print(f"Error: {e}")
-    except Exception as e:
-        print(f"Unexpected error: {e}")
+    # Save the report
+    with open(output_file, "w") as f:
+        f.write(rendered_html)
+    print(f"Report generated: {output_file}")
