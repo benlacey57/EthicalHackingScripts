@@ -60,7 +60,7 @@ def validate_challenge_directory(challenge_name):
         FileNotFoundError: If the challenge directory or metadata file is missing.
     """
     base_config = load_config("base")
-    base_path = os.path.expanduser(base_config.get("base_directory"))
+    base_path = os.path.expanduser(base_config.get("base_directory", "~/HTB"))
     challenge_path = os.path.join(base_path, challenge_name)
 
     if not os.path.exists(challenge_path):

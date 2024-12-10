@@ -15,6 +15,7 @@ def load_config(config_name):
 
     return config if isinstance(config, dict) else {"base_directory": default_challenges_path}
 
+
 def check_and_create_directory(directory_path):
     """
     Checks if a directory exists and creates it if it doesn't.
