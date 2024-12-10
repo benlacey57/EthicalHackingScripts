@@ -16,10 +16,19 @@ def load_config(tool_name):
         FileNotFoundError: If the configuration file does not exist.
     """
     config_file = os.path.join("config", f"{tool_name}.json")
-    if not os.path.exists(config_file):
-        raise FileNotFoundError(f"Config file for {tool_name} not found.")
-    with open(config_file, "r") as f:
-        return json.load(f)
+
+    try:
+        with open(config_file, "r") as f:
+            config = json.load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Configuration file not found: {config_file}")
+    
+    # Fallback to a default 'challenges' folder in the script root
+    default_challenges_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'challenges'))
+    os.makedirs(default_challenges_path, exist_ok=True)
+
+    return config.get('base_directory', default_challenges_path) 
+
 
 def check_and_create_directory(directory_path):
     """
