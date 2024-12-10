@@ -14,7 +14,7 @@ def generate_report(tool_name, output_file, raw_output, extra_context=None):
         extra_context (dict): Additional context to pass to the template.
     """
     # Load definitions
-    definitions_file = os.path.join("reports", "definitions.json")
+    definitions_file = os.path.join("reports", "templates", "definitions.json")
     with open(definitions_file, "r") as f:
         definitions = json.load(f)
 
@@ -41,3 +41,5 @@ def generate_report(tool_name, output_file, raw_output, extra_context=None):
     with open(output_file, "w") as f:
         f.write(rendered_html)
     print(f"Report generated: {output_file}")
+
+    
