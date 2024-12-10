@@ -1,5 +1,0 @@
-{
-  "base_directory": "~/htb/",
-  "default_log_file": "challenge.log",
-  "metadata_file": "metadata.json"
-}
