@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      height: {
+        'a4': '297mm',
+      },
+      width: {
+        'a4': '210mm',
+      },
       colors: {
         primary: {
           light: "#93c5fd",
