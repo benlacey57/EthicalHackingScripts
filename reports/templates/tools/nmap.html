@@ -1,7 +1,24 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    {% include 'includes/tool_summary.html' %}
-{% endblock %}
-
-<!-- Show table for ports here -->
+<section>
+<table class="min-w-full bg-white rounded-lg shadow-md">
+    <thead class="bg-gray-800 text-white">
+        <tr>
+            <th class="py-3 px-6">Port</th>
+            <th class="py-3 px-6">Status</th>
+            <th class="py-3 px-6">Service</th>
+            <th class="py-3 px-6">Version</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr class="border-b">
+            <td class="py-3 px-6">{{ row.port }}</td>
+            <td class="py-3 px-6 {{ 'text-red-500' if row.status == 'open' else 'text-green-500' }}">
+                {{ row.status }}
+            </td>
+            <td class="py-3 px-6">{{ row.service }}</td>
+            <td class="py-3 px-6">{{ row.version }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</section>
