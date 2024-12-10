@@ -4,57 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="templates/assets/report-base.css">
 </head>
+    
 <body class="bg-gray-100 text-gray-800 font-sans">
     <!-- Cover Page -->
-    {% block cover %}
-      {% include templates/cover-page.html %}
-    {% endblock %}
+    {% include 'templates/cover-page.html' %}
 
-    <!-- Report Introduction -->
-    {% block intro %}
-    <section class="bg-white py-10 px-6 shadow-md">
-        <h2 class="text-3xl font-bold">Introduction</h2>
-        <p class="mt-4">{{ introduction }}</p>
-    </section>
-    {% endblock %}
+    <!-- Report Summary -->
+    {% include 'templates/report-summary.html' %}
 
-    <!-- Summary of Findings -->
-    {% block summary %}
-    <section class="py-10">
-        <h2 class="text-3xl font-bold text-center mb-6">Summary of Findings</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {% for finding in summary_findings %}
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-xl font-bold">{{ finding.title }}</h3>
-                <p class="mt-2">{{ finding.description }}</p>
-                <div class="mt-4">
-                    {% if finding.chart %}
-                    <img src="{{ finding.chart }}" alt="Chart for {{ finding.title }}" class="rounded-lg">
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endblock %}
+    <!-- Contents Page -->
+    {% include 'templates/contents-page.html' %}
 
-    <!-- Table of Contents -->
-    {% block contents %}
-    <section class="bg-gray-100 py-10 px-6">
-        <h2 class="text-3xl font-bold">Table of Contents</h2>
-        <ul class="list-disc list-inside mt-4">
-            {% for tool in tools %}
-            <li>
-                <a href="#{{ tool.name }}" class="text-blue-500 hover:underline">{{ tool.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    {% endblock %}
-
-    <!-- Tool-Specific Findings -->
+    <!-- Dynamic Tool-Specific Findings -->
     {% block tool_findings %}
     {% for tool in tools %}
     <section id="{{ tool.name }}" class="py-10">
@@ -65,25 +28,8 @@
     {% endfor %}
     {% endblock %}
 
-    <!-- Services Page -->
-    {% block services %}
-    <section class="bg-white py-10 px-6">
-        <h2 class="text-3xl font-bold text-center">Our Services</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            {% for service in services %}
-            <div class="flex items-start space-x-4">
-                <img src="{{ service.image }}" alt="{{ service.name }}" class="w-20 h-20 rounded-lg">
-                <div>
-                    <h3 class="text-xl font-bold">{{ service.name }}</h3>
-                    <p class="mt-2">{{ service.description }}</p>
-                    <a href="{{ service.link }}" target="_blank" class="text-blue-500 hover:underline">
-                        Learn More
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endblock %}
+    <!-- Footer -->
+    {% include 'templates/footer.html' %}
+
 </body>
 </html>
