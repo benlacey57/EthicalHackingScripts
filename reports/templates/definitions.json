@@ -267,131 +267,130 @@
   },
   "tools": {
     "nmap": {
-          "name": "Nmap",
-          "purpose": "Network scanning and reconnaissance",
-          "stage": "Information Gathering",
-          "description": "Nmap is used to discover hosts and services on a network, providing details such as open ports, running services, and system details. It helps ethical hackers map the attack surface of a target."
-        },
-        "metasploit": {
-          "name": "Metasploit",
-          "purpose": "Exploitation framework",
-          "stage": "Exploitation",
-          "description": "Metasploit provides a suite of tools to identify, validate, and exploit vulnerabilities in systems. It includes modules for payload generation, exploits, and auxiliary scanning."
-        },
-        "nikto": {
-          "name": "Nikto",
-          "purpose": "Web server vulnerability scanning",
-          "stage": "Vulnerability Assessment",
-          "description": "Nikto is a web server scanner that tests for dangerous files, outdated server software, and other security issues."
-        },
-        "dnsenum": {
-              "name": "dnsenum",
-              "purpose": "DNS enumeration",
-              "stage": "Information Gathering",
-              "description": "dnsenum is a tool for enumerating DNS information, such as subdomains and hostnames. It helps in identifying potential targets within a domain."
-            },
-            "dnsrecon": {
-              "name": "dnsrecon",
-              "purpose": "DNS reconnaissance",
-              "stage": "Information Gathering",
-              "description": "dnsrecon gathers DNS records, performs zone transfers, and checks for potential misconfigurations or vulnerabilities in DNS servers."
-            },
-            "whois": {
-              "name": "Whois",
-              "purpose": "Domain information retrieval",
-              "stage": "Information Gathering",
-              "description": "Whois fetches details about domain registration, ownership, and contact information, useful for open-source intelligence gathering."
-            },
-            "cewl": {
-              "name": "Cewl",
-              "purpose": "Custom wordlist generation",
-              "stage": "Password Attacks",
-              "description": "Cewl creates custom wordlists by scraping text from a target website, which can be used for password brute-force attacks."
-            },
-            "aircrack-ng": {
-              "name": "Aircrack-ng",
-              "purpose": "Wireless network security testing",
-              "stage": "Information Gathering, Exploitation",
-              "description": "Aircrack-ng is a suite of tools for assessing wireless network security, including packet capture and WPA/WEP key cracking."
-            },
-            "wpscan": {
-              "name": "WPScan",
-              "purpose": "WordPress vulnerability scanning",
-              "stage": "Vulnerability Assessment",
-              "description": "WPScan identifies vulnerabilities in WordPress installations, including weak credentials, outdated plugins, and misconfigurations."
-            },
-            "burpsuite": {
-              "name": "Burp Suite",
-              "purpose": "Web application security testing",
-              "stage": "Exploitation, Vulnerability Assessment",
-              "description": "Burp Suite is a powerful platform for testing the security of web applications, including intercepting HTTP requests and performing automated scans."
-            },
-            "wireshark": {
-              "name": "Wireshark",
-              "purpose": "Packet analysis",
-              "stage": "Information Gathering",
-              "description": "Wireshark captures and analyses network packets to identify security issues or monitor network traffic."
-            },
-            "setoolkit": {
-              "name": "Social-Engineer Toolkit (SET)",
-              "purpose": "Social engineering attacks",
-              "stage": "Social Engineering",
-              "description": "SET automates the creation of phishing pages, credential harvesters, and other social engineering techniques."
-            },
-            "reaver": {
-              "name": "Reaver",
-              "purpose": "WPS pin cracking",
-              "stage": "Exploitation",
-              "description": "Reaver exploits vulnerabilities in WPS-enabled wireless routers to recover WPA/WPA2 keys."
-            },
-            "john_the_ripper": {
-              "name": "John the Ripper",
-              "purpose": "Password cracking",
-              "stage": "Exploitation",
-              "description": "John the Ripper recovers plaintext passwords from hashed credentials using brute-force and dictionary attacks."
-            },
-            "hydra": {
-              "name": "Hydra",
-              "purpose": "Network password cracking",
-              "stage": "Exploitation",
-              "description": "Hydra performs brute-force password attacks on protocols like SSH, FTP, and HTTP."
-            },
-            "gobuster": {
-              "name": "Gobuster",
-              "purpose": "Directory brute-forcing",
-              "stage": "Information Gathering",
-              "description": "Gobuster finds hidden files and directories on a web server by brute-forcing URLs."
-            },
-            "theharvester": {
-              "name": "The Harvester",
-              "purpose": "Open-source intelligence gathering",
-              "stage": "Information Gathering",
-              "description": "The Harvester gathers emails, subdomains, IPs, and other data from public sources such as search engines and social networks."
-            },
-            "ettercap": {
-              "name": "Ettercap",
-              "purpose": "Network interception",
-              "stage": "Information Gathering, Exploitation",
-              "description": "Ettercap allows for man-in-the-middle attacks, enabling packet capture and modification."
-            },
-            "maltego": {
-              "name": "Maltego",
-              "purpose": "Data visualisation",
-              "stage": "Information Gathering",
-              "description": "Maltego maps relationships between data points, such as domains, individuals, and organisations, using open-source intelligence."
-            },
-            "hashcat": {
-              "name": "Hashcat",
-              "purpose": "Advanced password cracking",
-              "stage": "Exploitation",
-              "description": "Hashcat is a fast password recovery tool that supports multiple hashing algorithms and hardware acceleration."
-            },
-            "ghidra": {
-              "name": "Ghidra",
-              "purpose": "Reverse engineering",
-              "stage": "Post-Exploitation",
-              "description": "Ghidra is a software reverse engineering tool for analysing binaries and uncovering vulnerabilities."
-            }
-          }
+      "name": "Nmap",
+      "purpose": "Network scanning and reconnaissance",
+      "stage": "Information Gathering",
+      "description": "Nmap is used to discover hosts and services on a network, providing details such as open ports, running services, and system details. It helps ethical hackers map the attack surface of a target."
+    },
+    "metasploit": {
+      "name": "Metasploit",
+      "purpose": "Exploitation framework",
+      "stage": "Exploitation",
+      "description": "Metasploit provides a suite of tools to identify, validate, and exploit vulnerabilities in systems. It includes modules for payload generation, exploits, and auxiliary scanning."
+    },
+    "nikto": {
+      "name": "Nikto",
+      "purpose": "Web server vulnerability scanning",
+      "stage": "Vulnerability Assessment",
+      "description": "Nikto is a web server scanner that tests for dangerous files, outdated server software, and other security issues."
+    },
+    "dnsenum": {
+      "name": "dnsenum",
+      "purpose": "DNS enumeration",
+      "stage": "Information Gathering",
+      "description": "dnsenum is a tool for enumerating DNS information, such as subdomains and hostnames. It helps in identifying potential targets within a domain."
+    },
+    "dnsrecon": {
+      "name": "dnsrecon",
+      "purpose": "DNS reconnaissance",
+      "stage": "Information Gathering",
+      "description": "dnsrecon gathers DNS records, performs zone transfers, and checks for potential misconfigurations or vulnerabilities in DNS servers."
+    },
+    "whois": {
+      "name": "Whois",
+      "purpose": "Domain information retrieval",
+      "stage": "Information Gathering",
+      "description": "Whois fetches details about domain registration, ownership, and contact information, useful for open-source intelligence gathering."
+    },
+    "cewl": {
+      "name": "Cewl",
+      "purpose": "Custom wordlist generation",
+      "stage": "Password Attacks",
+      "description": "Cewl creates custom wordlists by scraping text from a target website, which can be used for password brute-force attacks."
+    },
+    "aircrack-ng": {
+      "name": "Aircrack-ng",
+      "purpose": "Wireless network security testing",
+      "stage": "Information Gathering, Exploitation",
+      "description": "Aircrack-ng is a suite of tools for assessing wireless network security, including packet capture and WPA/WEP key cracking."
+    },
+    "wpscan": {
+      "name": "WPScan",
+      "purpose": "WordPress vulnerability scanning",
+      "stage": "Vulnerability Assessment",
+      "description": "WPScan identifies vulnerabilities in WordPress installations, including weak credentials, outdated plugins, and misconfigurations."
+    },
+    "burpsuite": {
+      "name": "Burp Suite",
+      "purpose": "Web application security testing",
+      "stage": "Exploitation, Vulnerability Assessment",
+      "description": "Burp Suite is a powerful platform for testing the security of web applications, including intercepting HTTP requests and performing automated scans."
+    },
+    "wireshark": {
+      "name": "Wireshark",
+      "purpose": "Packet analysis",
+      "stage": "Information Gathering",
+      "description": "Wireshark captures and analyses network packets to identify security issues or monitor network traffic."
+    },
+    "setoolkit": {
+      "name": "Social-Engineer Toolkit (SET)",
+      "purpose": "Social engineering attacks",
+      "stage": "Social Engineering",
+      "description": "SET automates the creation of phishing pages, credential harvesters, and other social engineering techniques."
+    },
+    "reaver": {
+      "name": "Reaver",
+      "purpose": "WPS pin cracking",
+      "stage": "Exploitation",
+      "description": "Reaver exploits vulnerabilities in WPS-enabled wireless routers to recover WPA/WPA2 keys."
+    },
+    "john_the_ripper": {
+      "name": "John the Ripper",
+      "purpose": "Password cracking",
+      "stage": "Exploitation",
+      "description": "John the Ripper recovers plaintext passwords from hashed credentials using brute-force and dictionary attacks."
+    },
+    "hydra": {
+      "name": "Hydra",
+      "purpose": "Network password cracking",
+      "stage": "Exploitation",
+      "description": "Hydra performs brute-force password attacks on protocols like SSH, FTP, and HTTP."
+    },
+    "gobuster": {
+      "name": "Gobuster",
+      "purpose": "Directory brute-forcing",
+      "stage": "Information Gathering",
+      "description": "Gobuster finds hidden files and directories on a web server by brute-forcing URLs."
+    },
+    "theharvester": {
+      "name": "The Harvester",
+      "purpose": "Open-source intelligence gathering",
+      "stage": "Information Gathering",
+      "description": "The Harvester gathers emails, subdomains, IPs, and other data from public sources such as search engines and social networks."
+    },
+    "ettercap": {
+      "name": "Ettercap",
+      "purpose": "Network interception",
+      "stage": "Information Gathering, Exploitation",
+      "description": "Ettercap allows for man-in-the-middle attacks, enabling packet capture and modification."
+    },
+    "maltego": {
+      "name": "Maltego",
+      "purpose": "Data visualisation",
+      "stage": "Information Gathering",
+      "description": "Maltego maps relationships between data points, such as domains, individuals, and organisations, using open-source intelligence."
+    },
+    "hashcat": {
+      "name": "Hashcat",
+      "purpose": "Advanced password cracking",
+      "stage": "Exploitation",
+      "description": "Hashcat is a fast password recovery tool that supports multiple hashing algorithms and hardware acceleration."
+    },
+    "ghidra": {
+      "name": "Ghidra",
+      "purpose": "Reverse engineering",
+      "stage": "Post-Exploitation",
+      "description": "Ghidra is a software reverse engineering tool for analysing binaries and uncovering vulnerabilities."
+    }
   }
 }
