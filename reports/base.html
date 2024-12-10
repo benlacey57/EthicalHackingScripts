@@ -9,10 +9,7 @@
 <body class="bg-gray-100 text-gray-800 font-sans">
     <!-- Cover Page -->
     {% block cover %}
-    <section class="h-screen bg-blue-500 text-white flex flex-col items-center justify-center">
-        <h1 class="text-5xl font-bold">{{ title }}</h1>
-        <p class="text-xl mt-4">{{ date }}</p>
-    </section>
+      {% include templates/cover-page.html %}
     {% endblock %}
 
     <!-- Report Introduction -->
