@@ -4,13 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="templates/assets/report-base.css">
 </head>
-<body>
-    {% include 'includes/header.html' %}
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    {% include 'includes/footer.html' %}
+    
+<body class="bg-gray-100 text-gray-800 font-sans">
+    <!-- Cover Page -->
+    {% include 'cover-page.html' %}
+
+    <!-- Report Summary -->
+    {% include 'report-summary.html' %}
+
+    <!-- Contents Page -->
+    {% include 'contents-page.html' %}
+
+    <!-- Dynamic Tool-Specific Findings -->
+    {% block tool_findings %}
+    {% for tool in tools %}
+    <section id="{{ tool.name }}" class="py-10">
+        <h2 class="text-2xl font-bold mb-4">{{ tool.title }}</h2>
+        <p>{{ tool.description }}</p>
+        {% include tool.template %}
+    </section>
+    {% endfor %}
+    {% endblock %}
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
 </body>
 </html>

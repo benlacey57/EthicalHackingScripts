@@ -1,0 +1,13 @@
+<div class="bg-white border rounded-lg shadow-md p-6">
+    <div class="flex items-center space-x-4">
+        {% if icon %}
+        <div class="flex-shrink-0">
+            <img src="{{ icon }}" alt="Icon" class="h-12 w-12">
+        </div>
+        {% endif %}
+        <div>
+            <h3 class="text-xl font-bold">{{ title }}</h3>
+            <p class="mt-2 text-gray-700">{{ description }}</p>
+        </div>
+    </div>
+</div>

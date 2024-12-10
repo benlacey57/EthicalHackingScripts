@@ -1,0 +1,11 @@
+<div class="chart-container">
+    <canvas id="lineChart"></canvas>
+</div>
+<script>
+    const ctx = document.getElementById('lineChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {{ chart_data | safe }},
+        options: {{ chart_options | safe }}
+    });
+</script>
